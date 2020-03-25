@@ -6,7 +6,11 @@ const mongoose = require('mongoose');
 const reportRoutes = express.Router();
 const PORT = 4000;
 
-let Report = require('./report.model');
+let Report = require('./models/report.model');
+let Investigation = require('./models/investigation.model');
+let Platform = require('./models/platform.model');
+let SubPlatform = require('./models/sub_platform.model');
+let System = require('./models/system.model');
 
 app.use(cors());
 app.use(bodyParser.json());

@@ -5,32 +5,17 @@ let Investigation = new Schema({
     investigation_description: {
         type: String
     },
-    report_fault_date: {
+    investigation_error_id: {
         type: String
     },
-    report_location: {
+    investigation_error_reason: {
         type: String
     },
-    report_platform: {
-        type: Number
-    },
-    report_sub_platform: {
-        type: Number
-    },
-    report_platform_num: {
+    investigation_investigator: {
         type: String
     },
-    report_date: {
+    investigation_solution: {
         type: String
-    },
-    report_reporter_username: {
-        type: String
-    },
-    report_summary: {
-        type: String
-    },
-    report_system: {
-        type: Number
     }
 });
 
