@@ -61,12 +61,12 @@ reportRoutes.route('/update/:id').put(function (req, res) {
             res.status(404).send('not found');
         } else {
             report.report_description = req.body.report_description;
-            report.fault_date = req.body.fault_date;
+            report.fault_date = req.body.report_fault_date;
             report.report_location = req.body.report_location;
             report.report_platform = req.body.report_platform;
             report.report_sub_platform = req.body.report_sub_platform;
             report.report_platform_num = req.body.report_platform_num;
-            report.report_date = req.body.report_date;
+            report.report_reporting_date = req.body.report_reporting_date;
             report.report_reporter_username = req.body.report_reporter_username;
             report.report_summary = req.body.report_summary;
             report.report_system = req.body.report_system;

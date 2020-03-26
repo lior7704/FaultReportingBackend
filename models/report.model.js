@@ -6,7 +6,7 @@ let Report = new Schema({
         type: String
     },
     report_fault_date: {
-        type: String
+        type: Date
     },
     report_location: {
         type: String
@@ -20,8 +20,8 @@ let Report = new Schema({
     report_platform_num: {
         type: String
     },
-    report_date: {
-        type: String
+    report_reporting_date: {
+        type: Date
     },
     report_reporter_username: {
         type: String
