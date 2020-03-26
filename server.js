@@ -55,7 +55,7 @@ reportRoutes.route('/add').post(function (req, res) {
         });
 });
 
-reportRoutes.route('/update/:id').post(function (req, res) {
+reportRoutes.route('/update/:id').put(function (req, res) {
     Report.findById(req.params.id, function (err, report) {
         if (!report) {
             res.status(404).send('not found');
