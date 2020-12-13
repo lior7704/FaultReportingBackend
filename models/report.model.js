@@ -2,35 +2,50 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Report = new Schema({
-    report_description: {
+    appears_in_errors_file: {
+        type: Boolean
+    }, 
+    description: {
         type: String
     },
-    report_fault_date: {
+    fault_date: {
         type: Date
     },
-    report_location: {
+    location: {
         type: String
     },
-    report_platform: {
+    platform: {
         type: Number
     },
-    report_sub_platform: {
+    sub_platform: {
         type: Number
     },
-    report_platform_num: {
+    platform_num: {
         type: String
     },
-    report_reporting_date: {
+    reporting_date: {
         type: Date
     },
-    report_reporter_username: {
+    reporter_username: {
         type: String
     },
-    report_summary: {
+    summary: {
         type: String
     },
-    report_system: {
+    system: {
         type: Number
+    }, 
+    recurring_on_same_vehicle: {
+        type: Boolean
+    }, 
+    recurring_on_other_vehicles: {
+        type: Boolean
+    }, 
+    temp_solution_description: {
+        type: String
+    }, 
+    temp_solution_found: {
+        type: Boolean
     }
 });
 
