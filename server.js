@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const reportRoutes = express.Router();
+const userRoutes = express.Router();
 const PORT = 4000;
 
 let Report = require('./models/report.model');
@@ -11,6 +12,7 @@ let Investigation = require('./models/investigation.model');
 let Platform = require('./models/platform.model');
 let SubPlatform = require('./models/sub_platform.model');
 let System = require('./models/system.model');
+let User = require('./models/user.model');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -112,7 +114,48 @@ reportRoutes.route('/update/:id').put(function (req, res) {
     });
 });
 
+userRoutes.route('/create').post(function (req, res, next) {
+    console.log(req.body);
+    let user = new User(req.body);
+    user.save()
+        .then(user => {
+            res.status(201).json({
+                'user': 'user' + user.username + 'created successfully'
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            if (err.code === 11000) {
+                res.status(409).send('User already exists on database');
+            }
+            else {
+                res.status(500).json(err);
+            }
+            // res.status(400).send('creation of new user failed');
+            // console.error(err);
+        });
+});
+
+userRoutes.route('/validate/:username/:password').get(function (req, res, next) {
+    const username = req.params.username;
+    const password = req.params.password;
+    console.log('username = ' + username + ', password = ' + password);
+    User.findOne({username: username, password: password}, function (err, user) {
+        if (err) {
+            res.status(500).json(err);
+        }
+        else if (user) {
+            console.log('username = ' + username + ', password = ' + password + ' was successfully validated');
+            res.status(200).json(user);
+        }
+        else {
+            res.status(401).send('Could not validate user ' + username + ' with the given password');
+        }
+    });
+});
+
 app.use('/reports', reportRoutes);
+app.use('/users', userRoutes);
 
 app.listen(PORT, function () {
     console.log("Server running on Port: " + PORT);
