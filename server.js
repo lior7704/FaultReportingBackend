@@ -5,6 +5,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const reportRoutes = express.Router();
 const userRoutes = express.Router();
+const platformRoutes = express.Router();
+const subPlatformRoutes = express.Router();
+const systemRoutes = express.Router();
 const PORT = 4000;
 
 let Report = require('./models/report.model');
@@ -47,22 +50,25 @@ connection.once('open', function () {
 })
 
 reportRoutes.route('/').get(function (req, res) {
-    // console.log(req);
     Report.find(function (err, reports) {
         if (err) {
             console.log(err);
+            res.status(500).json(err);
         } else {
-            // console.log(reports);
             res.json(reports);
         }
-
     });
 });
 
 reportRoutes.route('/:id').get(function (req, res) {
     const id = req.params.id;
     Report.findById(id.toObjectId(), function (err, report) {
-        res.json(report);
+        if (err) {
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.json(report);
+        }
     });
 });
 
@@ -154,8 +160,44 @@ userRoutes.route('/validate/:username/:password').get(function (req, res, next) 
     });
 });
 
+platformRoutes.route('/').get(function (req, res) {
+    Platform.find(function (err, platforms) {
+        if (err) {
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.json(platforms);
+        }
+    });
+});
+
+subPlatformRoutes.route('/').get(function (req, res) {
+    SubPlatform.find(function (err, subPlatforms) {
+        if (err) {
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.json(subPlatforms);
+        }
+    });
+});
+
+systemRoutes.route('/').get(function (req, res) {
+    System.find(function (err, systems) {
+        if (err) {
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.json(systems);
+        }
+    });
+});
+
 app.use('/reports', reportRoutes);
 app.use('/users', userRoutes);
+app.use('/platforms', platformRoutes);
+app.use('/subplatforms', subPlatformRoutes);
+app.use('/systems', systemRoutes);
 
 app.listen(PORT, function () {
     console.log("Server running on Port: " + PORT);
